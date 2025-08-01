@@ -5,7 +5,7 @@
 
             <a href="#" class="app-brand-link">
                <img src="{{ asset('dashboard/assets/img/branding/brand-img-small.png') }}" class="sign-favicon-b ht-40" height="25" alt="logo">
-               <span class="app-brand-text demo menu-text fw-bold">بوابة الإدارة</span>
+               <span class="app-brand-text demo menu-text fw-bold">حسابي البنكي</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">

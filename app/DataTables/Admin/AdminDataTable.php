@@ -21,9 +21,9 @@ class AdminDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($admin) {
-                if ($admin->id == 1) {
-                   return ''; 
-                }
+                // if ($admin->id == 1) {
+                //    return ''; 
+                // }
                 return view('components.actions', [
                     'id' => $admin->id,
                     'routeEdit' => auth()->user()->can('admins update') ? 'admin.admins.edit' : '',
@@ -54,18 +54,19 @@ class AdminDataTable extends DataTable
                 ]);
             })
 
-            ->addColumn('image', function ($admin) {
-                return view('components.image', ['photo' => $admin->img_url]);
-            })
+
             ->rawColumns(['action', 'iterator']);
     }
 
     /**
      * Get query source of dataTable.
      */
-    public function query(admin $model): QueryBuilder
+    public function query(Admin $model): QueryBuilder
     {
-        return $model->newQuery();
+        // return $model->newQuery();
+         $admin = auth('admin')->user();
+
+        return $admin->delegates()->getQuery();
     }
 
     /**
@@ -105,10 +106,6 @@ class AdminDataTable extends DataTable
                 ->title('#')
                 ->addClass('text-center pt-3'),
 
-            Column::make('image')
-                ->title('الصورة')
-                ->addClass('text-center pt-3'),
-
             Column::computed('name')
                 ->title('الاسم')
                 ->addClass('text-center pt-3'),
@@ -119,10 +116,6 @@ class AdminDataTable extends DataTable
 
             Column::make('email')
                 ->title('البريد الإلكتروني')
-                ->addClass('text-center pt-3'),
-
-            Column::computed('role')
-                ->title('الدور')
                 ->addClass('text-center pt-3'),
 
             Column::computed('status')

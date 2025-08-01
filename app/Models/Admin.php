@@ -38,4 +38,19 @@ class Admin extends Authenticatable
             File::delete($photoPath);
         }
     }
+    // من قام بتفويض مشرفين
+    public function delegates()
+    {
+    return $this->belongsToMany(Admin::class, 'admin_delegate', 'admin_id', 'delegate_id')
+                ->withPivot(['id_number', 'problem', 'delegation_duration', 'agency_number', 'agency_type', 'max_amount'])
+                ->withTimestamps();
+    }
+
+// من فُوّض إليهم هذا المشرف
+    public function delegators()
+   {
+    return $this->belongsToMany(Admin::class, 'admin_delegate', 'delegate_id', 'admin_id')
+                ->withPivot(['id_number', 'problem', 'delegation_duration', 'agency_number', 'agency_type', 'max_amount'])
+                ->withTimestamps();
+    }
 }

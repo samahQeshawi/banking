@@ -22,21 +22,19 @@
                       method="post" enctype="multipart/form-data" class="row g-6">
                         @csrf
 
-                        @php
-                          $photoSession = session('image');
-                          $photoPath = is_array($photoSession) ? $photoSession['path'] : $photoSession;
-                          $adminPhoto = $photoPath ? asset('storage/' . $photoPath) : asset('dashboard/assets/img/6.jpg');
-                        @endphp
-
-                      
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                              <label class="form-label" for="phone">رقم الجوال<span class="text-danger">*</span></label>
-                              <input type="tel" maxlength="11"  value="{{old('phone')}}" dir="ltr"
-                                    class="form-control border-input phone-input-1" required>
-                              <small class="form-text text-muted">يجب أن يكون رقم الجوال مسجلًا في البنك</small>      
+                        <div class="col-md-6">  
+                           <div class="form-group">   
+                             <label class="form-label" for="phone">رقم الجوال<span class="text-danger">*</span></label>
+                   
+                            <div class="input-group">
+                                <input type="number" maxlength="11" name="phone"
+                                    value="{{old('phone')}}" dir="ltr"
+                                    class="form-control border-input" required> 
+                                <span class="input-group-text" id="basic-addon11">966+</span>                                      
                             </div>
+                            <small class="form-text text-muted">يجب أن يكون رقم الجوال مسجلًا في البنك</small>      
+
+                           </div>
                             @error('phone')
                               <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -44,23 +42,23 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                              <label class="form-label" for="phone">رقم الهوية الوطنية<span class="text-danger">*</span></label>
-                              <input type="number" maxlength="11"  value="{{old('identity_number')}}" name="identity_number" dir="ltr"
-                                    class="form-control border-input phone-input-1" required>   
+                              <label class="form-label" for="id_number">رقم الهوية الوطنية<span class="text-danger">*</span></label>
+                              <input type="number" maxlength="11"  value="{{old('id_number')}}" name="id_number" dir="ltr"
+                                    class="form-control border-input" required>   
                             </div>
-                            @error('identity_number')
+                            @error('id_number')
                               <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="col-sm-6">
-                          <label class="form-label" for="role">نوع المشكلة</label>
-                            <select placeholder="اختر" class="selectpicker w-auto"  name="problem" data-style="btn-default">
-                                <option value="1" >كفيف</option>
-                                <option value="2" >ضعيف السمع</option>
-                                <option value="3" >صعوبات التعلم</option>
-                                <option value="4" >كبير السن</option>
-                                <option value="5" >فاقد الاهلية</option>
+                          <label class="form-label" for="problem">سبب التفويض</label>
+                            <select placeholder="اختر" class="selectpicker w-auto" name="problem" >
+                                <option value="1" {{ old('problem') == 1 ? 'selected' : '' }}>كفيف</option>
+                                <option value="2" {{ old('problem') == 2 ? 'selected' : '' }}>ضعيف السمع</option>
+                                <option value="3" {{ old('problem') == 3 ? 'selected' : '' }}>صعوبات التعلم</option>
+                                <option value="4" {{ old('problem') == 4 ? 'selected' : '' }}>كبير السن</option>
+                                <option value="5" {{ old('problem') == 5 ? 'selected' : '' }}>فاقد الاهلية</option>
                             </select>
                             @error('problem')
                               <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -70,11 +68,11 @@
                         <div class="col-sm-6">
                           <label class="form-label" for="delegation_duration">مدة التفويض</label>
                             <select placeholder="اختر" class="selectpicker w-auto"  name="delegation_duration" data-style="btn-default">
-                                <option value="1" >يوم</option>
-                                <option value="2" >أسبوع</option>
-                                <option value="3" >شهر</option>
-                                <option value="4" >سنة</option>
-                                <option value="5" >غير محدد</option>
+                                <option value="1" {{ old('delegation_duration') == 1 ? 'selected' : '' }}>يوم</option>
+                                <option value="2" {{ old('delegation_duration') == 2 ? 'selected' : '' }}>أسبوع</option>
+                                <option value="3" {{ old('delegation_duration') == 3 ? 'selected' : '' }}>شهر</option>
+                                <option value="4" {{ old('delegation_duration') == 4 ? 'selected' : '' }}>سنة</option>
+                                <option value="5" {{ old('delegation_duration') == 5 ? 'selected' : '' }}>غير محدد</option>
                             </select>
                             @error('delegation_duration')
                               <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -84,7 +82,7 @@
                         <div class="col-md-6">
                           <label class="form-label" for="agency_number">رقم الوكالة</label>
 
-                            <input value="{{old('agency_number')}}"  type="text" class="form-control" name="agency_number" required/>
+                            <input value="{{old('agency_number')}}"  type="number" class="form-control" name="agency_number" required/>
                             @error('agency_number')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -93,7 +91,7 @@
                         <div class="col-md-6">
                           <label class="form-label" for="max_amount">الحد الاعلى للمبالغ</label>
 
-                            <input value="{{old('max_amount')}}"  type="text" class="form-control" name="max_amount" required/>
+                            <input value="{{old('max_amount')}}"  type="number" class="form-control" name="max_amount" required/>
                             @error('max_amount')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -102,22 +100,16 @@
                         <div class="col-md p-6">
                        
                         <div class="form-check form-check-inline mt-4">
-                          <input class="form-check-input" type="radio" name="agency_type" id="inlineRadio1" value="option1">
+                          <input class="form-check-input" type="radio" name="agency_type" id="inlineRadio1" value="1">
                           <label class="form-check-label" for="inlineRadio1">وكالة</label>
                         </div>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="agency_type" id="inlineRadio2" value="option2">
+                          <input class="form-check-input" type="radio" name="agency_type" id="inlineRadio2" value="2" checked>
                           <label class="form-check-label" for="inlineRadio2">بدون وكالة</label>
                         </div>
                       </div>
 
-                        
-
-                        
-
-                      
-
-                   <hr class="mt-7" /> 
+                   <hr class="mt-3" style="height: 3px; background-color: #e6e6e8;"/> 
                    <div class="fv-row">
                             <div class="card-header">
                                 <label class="fs-5 fw-bolder form-label mb-2">التفويض</label>
@@ -129,8 +121,9 @@
 
                                     <tr>
                                         <td class="text-gray-800">
-                                            جميع الصلاحيات 
+                                            جميع التفويضات 
                                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="تحكم كامل في جميع الصلاحيات"></i>
+                                        
                                         </td>
                                         <td>
                                             <label class="form-check form-check-custom form-check-solid me-9">
@@ -138,6 +131,9 @@
                                                 <span class="form-check-label" for="kt_roles_select_all">تحديد الكل</span>
                                             </label>
                                         </td>
+                                        @error('permissions')
+                                           <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </tr>
 
                                     @foreach($permissions as $module => $perms)

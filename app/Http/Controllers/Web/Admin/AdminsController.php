@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\AdminRequest;
 use App\Models\Admin;
 use App\Traits\ImageTrait;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -54,20 +55,27 @@ class AdminsController extends Controller
      */
     public function store(AdminRequest $request)
     {
+        $data = $request->except(['permissions']);
 
-        $data = $request->except(['image', 'role_id','password_confirmation']);
-        $uploadFields = ['image'];
+        $delegate = Admin::where('phone', $request->phone)->first();
 
-        $admin = Admin::create($data);
-        $this->saveAttachments($admin, $uploadFields,'admins');
+        DB::table('admin_delegate')->updateOrInsert([
+            'admin_id' => auth('admin')->id(),
+            'delegate_id' => $delegate->id,
+        ], [
+        'id_number' => $request->id_number,
+        'problem' => $request->problem,
+        'delegation_duration' => $request->delegation_duration,
+        'agency_number' => $request->agency_number,
+        'agency_type' => $request->agency_type,
+        'max_amount' => $request->max_amount,
+        'updated_at' => now(),
+        'created_at' => now(),
+        ]);
 
-        if ($request->filled('role_id')) {
-          $role = Role::find($request->role_id);
-          if ($role) {
-            $admin->assignRole($role->name); // لا تستخدم ID بل الاسم
-          }
-        }
-
+        $permissions = Permission::whereIn('id', $request->input('permissions'))->get();
+        $delegate->syncPermissions($permissions);
+     
         return redirect()->route('admin.admins.index')
             ->with('success', 'تم انشاء المشرف بنجاح.');
     }
