@@ -1,0 +1,29 @@
+{
+    "User Registered Successfully.": "تم تسجيل المستخدم بنجاح.",
+    "Your credentials are not correct. Please check your phone/password.": "بيانات الاعتماد الخاصة بك ليست صحيحة. يرجى التحقق من هاتفك/كلمة المرور.",
+    "User does not exist.": "المستخدم غير موجود.",
+    "Password Reset link sent successfully.": "تم إرسال رابط إعادة تعيين كلمة المرور بنجاح.",
+    "Password Reset Token is invalid.": "رمز إعادة تعيين كلمة المرور غير صالح.",
+    "Password Reset Token is expired.": "انتهت صلاحية رمز إعادة تعيين كلمة المرور.",
+    "Password Reset sent successfully.": "تم إرسال إعادة تعيين كلمة المرور بنجاح.",
+    "Password entered is invalid.": "تم إدخال كلمة المرور بشكل غير صحيحة.",
+    "Password has been successfully updated.": "تم تحديث كلمة المرور بنجاح.",
+    "User logged out successfully.": "تم تسجيل خروج المستخدم بنجاح.",
+    "User deleted successfully.": "تم حذف المستخدم بنجاح.",
+    "User Authenticated Successfully.": "تم تسجيل الدخول بنجاح.",
+
+    "File upload encountered an error.": "حدث خطأ أثناء تحميل الملف.",
+
+    "You have exceeded your sms limit. Please wait :duration minutes.": "لقد تجاوزت حد الرسائل القصيرة الخاصة بك. من فضلك انتظر :duration minutes.",
+
+    "The promotional code is invalid and cannot be used.": "الرمز الترويجي غير صالح ولا يمكن استخدامه.",
+    "The promotional code is currently inactive and cannot be used.": "الرمز الترويجي غير نشط حاليًا ولا يمكن استخدامه.",
+    "The start date for the promotional code has not been reached yet.": "لم يتم الوصول إلى تاريخ البدء للرمز الترويجية بعد.",
+    "The end date for the promotional code has not been reached yet.": "لم يتم الوصول إلى تاريخ انتهاء الرمز الترويجي بعد.",
+    "Promotion added successfully.": "تمت إضافة الترويج بنجاح.",
+    "Promotion removed successfully.": "تمت إزالة الترويج بنجاح.",
+    "The value of the promotion exceeds the price of the item.": "تتجاوز قيمة العرض الترويجي سعر السلعة.",
+    "The promo code usage limit has been exceeded." : "تم تجاوز حد استخدام الرمز الترويجي."
+
+
+}
