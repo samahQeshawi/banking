@@ -12,9 +12,9 @@ use App\Http\Controllers\Web\Admin\SettingsController as SettingsAdminController
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
 use App\Http\Controllers\Web\Admin\InvestmentsController;
-use App\Http\Controllers\Web\Admin\LoansController;
-use App\Http\Controllers\Web\Admin\ReceivablesController;
-use App\Http\Controllers\Web\Admin\TransfersController;
+use App\Http\Controllers\Web\Admin\AccountsController;
+use App\Http\Controllers\Web\Admin\CardsController;
+use App\Http\Controllers\Web\Admin\PaymentsController;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -65,18 +65,20 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin-panel', 'as' =>
     // profile
     Route::get('/profile', [ProfileAdminController::class, 'show'])->name('profile.show');
     Route::put('/profile/update', [ProfileAdminController::class, 'update'])->name('profile.update');
-    
+    // حسابي البنكي
+    Route::get('/bank-account', [ProfileAdminController::class, 'showBankAccount'])->name('bank-account.show');
+
     // المشرفين
     Route::resource('admins', AdminsController::class);
     Route::get('admins/updateStatus/{id}', [AdminsController::class, 'updateStatus'])->name('admins.updateStatus');
 
-    // التحويلات
-    Route::resource('transfers', TransfersController::class);
+    // الحسابات
+    Route::resource('accounts', AccountsController::class);
     // الاستثمارات
     Route::resource('investments', InvestmentsController::class);
-  
-    // المستحقات
-    Route::resource('receivables', ReceivablesController::class);
+
+    // المدفوعات
+    Route::resource('payments', PaymentsController::class);
 
     // البطاقات
     Route::resource('cards', CardsController::class);

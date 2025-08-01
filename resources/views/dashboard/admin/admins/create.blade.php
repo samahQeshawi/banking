@@ -28,47 +28,14 @@
                           $adminPhoto = $photoPath ? asset('storage/' . $photoPath) : asset('dashboard/assets/img/6.jpg');
                         @endphp
 
-                      <div class="card-body d-flex justify-content-center align-items-center">
-
-                        <div class="d-flex align-items-start align-items-sm-center gap-6 position-relative">
-                            <!-- Image preview with click upload functionality -->
-                            <div class="position-relative">
-
-                             <img src="{{ $adminPhoto }}" alt="user-avatar"
-                              class="d-block w-px-150 h-px-150 rounded cursor-pointer uploaded-avatar"
-                              data-default-src="{{ asset('dashboard/assets/img/6.jpg') }}"/>
-
-                              <!-- Reset Icon -->
-                              <button type="button" class="btn btn-sm btn-danger position-absolute 
-                                  top-0 start-100 translate-middle p-1 rounded-circle d-flex 
-                                  align-items-center justify-content-center reset-image" 
-                                  style="width: 24px; height: 24px;">
-                                <i class="ti ti-x"></i>
-                              </button>
-                            </div>
-
-                            <!-- Hidden file input -->
-                            <input type="file" class="account-file-input upload" name="image" hidden accept="image/png, image/jpeg" />
-
-                            @error('image')
-                             <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                      </div>
-
-                        <div class="col-md-6">
-                          <label class="form-label" for="name">الاسم</label>
-                            <input value="{{old('name')}}" id="name" type="text" class="form-control" name="name"  required/>
-                            @error('name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
+                      
 
                         <div class="col-md-6">
                             <div class="form-group">
                               <label class="form-label" for="phone">رقم الجوال<span class="text-danger">*</span></label>
                               <input type="tel" maxlength="11"  value="{{old('phone')}}" dir="ltr"
                                     class="form-control border-input phone-input-1" required>
+                              <small class="form-text text-muted">يجب أن يكون رقم الجوال مسجلًا في البنك</small>      
                             </div>
                             @error('phone')
                               <span class="text-danger">{{ $message }}</span>
@@ -76,11 +43,13 @@
                         </div>
 
                         <div class="col-md-6">
-                          <label class="form-label" for="email">البريد الالكتروني</label>
-
-                            <input value="{{old('email')}}"  type="email" class="form-control" name="email" required/>
-                            @error('email')
-                                <span class="text-danger">{{ $message }}</span>
+                            <div class="form-group">
+                              <label class="form-label" for="phone">رقم الهوية الوطنية<span class="text-danger">*</span></label>
+                              <input type="number" maxlength="11"  value="{{old('identity_number')}}" name="identity_number" dir="ltr"
+                                    class="form-control border-input phone-input-1" required>   
+                            </div>
+                            @error('identity_number')
+                              <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -98,39 +67,55 @@
                             @enderror
                         </div>
 
+                        <div class="col-sm-6">
+                          <label class="form-label" for="delegation_duration">مدة التفويض</label>
+                            <select placeholder="اختر" class="selectpicker w-auto"  name="delegation_duration" data-style="btn-default">
+                                <option value="1" >يوم</option>
+                                <option value="2" >أسبوع</option>
+                                <option value="3" >شهر</option>
+                                <option value="4" >سنة</option>
+                                <option value="5" >غير محدد</option>
+                            </select>
+                            @error('delegation_duration')
+                              <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        
+                        <div class="col-md-6">
+                          <label class="form-label" for="agency_number">رقم الوكالة</label>
+
+                            <input value="{{old('agency_number')}}"  type="text" class="form-control" name="agency_number" required/>
+                            @error('agency_number')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                          <label class="form-label" for="max_amount">الحد الاعلى للمبالغ</label>
+
+                            <input value="{{old('max_amount')}}"  type="text" class="form-control" name="max_amount" required/>
+                            @error('max_amount')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <div class="col-md p-6">
                        
                         <div class="form-check form-check-inline mt-4">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                          <input class="form-check-input" type="radio" name="agency_type" id="inlineRadio1" value="option1">
                           <label class="form-check-label" for="inlineRadio1">وكالة</label>
                         </div>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                          <input class="form-check-input" type="radio" name="agency_type" id="inlineRadio2" value="option2">
                           <label class="form-check-label" for="inlineRadio2">بدون وكالة</label>
                         </div>
                       </div>
 
-                        <div class="col-sm-6 form-password-toggle">
-                                    <label class="form-label" for="password">كلمة المرور </label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="••••••••••">
-                                        <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
-                                    </div>
-                                    @error('password')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
-                        </div>
+                        
 
-                        <div class="col-sm-6 form-password-toggle">
-                                    <label class="form-label" for="password_confirmation"> تأكيد كلمة المرور</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="password" id="password_confirmation" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="••••••••••">
-                                        <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
-                                    </div>
-                                    @error('password_confirmation')
-                                    <div class="invalid-feedback invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
-                        </div>
+                        
+
+                      
 
                    <hr class="mt-7" /> 
                    <div class="fv-row">

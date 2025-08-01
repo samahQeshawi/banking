@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\ProfileRequest;
 use App\Models\Admin;
 use App\Traits\ImageTrait;
+use Illuminate\Support\Facades\Http;
 
 class ProfileController extends Controller
 {
@@ -40,5 +41,19 @@ class ProfileController extends Controller
         $user->update($data);
 
         return redirect()->back()->with('success', 'تم تحديث البيانات بنجاح');
+    }
+
+    public function showBankAccount()
+    {
+      $response = Http::post('http://34.207.89.197:5000/fraud-score', [
+        'amount' => 5000,
+        'hour' => 1,
+        'device' => 'known',
+        'tribe' => 'aljohani',
+       ]);
+
+       $score = $response->json(); // أو $response->body() حسب نوع الاستجابة
+
+    return view('dashboard.admin.bank-account', compact('score'));
     }
 }

@@ -27,14 +27,14 @@
                     </li>
                   {{--  @endcan  --}}  
 
-                  @can('roles display')
-                    <li class="menu-item {{ Route::is('admin.roles.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.roles.index') }}" class="menu-link">
+                  {{--  @can('roles display')  --}}
+                    <li class="menu-item {{ Route::is('admin.bank-account.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.bank-account.show') }}" class="menu-link">
                             <i class="menu-icon fa-solid fa-swatchbook"></i>
-                            <div>ادارة الأدوار</div>
+                            <div>حسابي البنكي</div>
                         </a>
                     </li>
-                  @endcan
+                  {{--  @endcan  --}}
 
                   @can('admins display')
                     <li class="menu-item {{ Route::is('admin.admins.*') ? 'active' : '' }}">
@@ -45,62 +45,43 @@
                     </li>
                   @endcan
 
-                  @can('transfers display')
-                    <li class="menu-item {{ Route::is('admin.transfers.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.transfers.index') }}" class="menu-link">
-                            <i class="menu-icon fa-solid fa-wallet"></i>
+                  @if(userHasAnyPermissionLike('accounts'))
+                    <li class="menu-item {{ Route::is('admin.accounts.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.accounts.index') }}" class="menu-link">
+                            <i class="menu-icon fas fa-university"></i>
                             <div>الحسابات</div>
                         </a>
                     </li>
-                  @endcan
-
-                  @can('investments display')
-                    <li class="menu-item {{ Route::is('admin.investments.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.investments.index') }}" class="menu-link">
-                            <i class="menu-icon fa-solid fa-money-bill-wave"></i>
-                            <div>الاستثمارات</div>
-                        </a>
-                    </li>
-                  @endcan
-
-                  @php
-                  $hasCardPermission = false;
-                    foreach (Auth::user()->getAllPermissions() as $permission) {
-                    if (Str::startsWith($permission->name, 'cards')) {
-            $hasCardPermission = true;
-            break;
-        }
-    }
-@endphp
+                  @endif
 
                   @if(userHasAnyPermissionLike('cards'))
                     <li class="menu-item {{ Route::is('admin.cards.*') ? 'active' : '' }}">
                         <a href="{{ route('admin.cards.index') }}" class="menu-link">
-                            <i class="menu-icon fa-solid fa-money-bill-wave"></i>
+                            <i class="menu-icon fas fa-list-alt"></i>
                             <div>البطاقات</div>
                         </a>
                     </li>
                   @endif
 
-                  @can('receivables ')
-                    <li class="menu-item {{ Route::is('admin.receivables.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.receivables.index') }}" class="menu-link">
-                            <i class="menu-icon fa-solid fa-file-invoice-dollar"></i>
-                            <div>سداد المستحقات</div>
+                  @if(userHasAnyPermissionLike('payments'))
+                    <li class="menu-item {{ Route::is('admin.payments.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.payments.index') }}" class="menu-link">
+                            <i class="menu-icon fa-solid fa-money-bill-wave"></i>
+                            <div>المدفوعات</div>
                         </a>
                     </li>
-                  @endcan
+                  @endif
+                    
 
-                  @can('loans display')
-                    <li class="menu-item {{ Route::is('admin.loans.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.loans.index') }}" class="menu-link">
-                            <i class="menu-icon fa-solid fas fa-coins"></i>
-                            <div>القروض</div>
+                  @if(userHasAnyPermissionLike('investments'))
+                    <li class="menu-item {{ Route::is('admin.investments.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.investments.index') }}" class="menu-link">
+                            <i class="menu-icon fa-solid fa-file-invoice-dollar"></i>
+                            <div>الاستثمارات</div>
                         </a>
                     </li>
-                  @endcan
-                  
-                
+                  @endif
+
                 {{--  @canany(['admins display', 'accounts display'])
                 <li class="menu-item {{ Route::is('admin.accounts.*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
