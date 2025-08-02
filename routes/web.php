@@ -5,7 +5,7 @@ use App\Http\Controllers\Web\Admin\CategoriesController;
 use App\Http\Controllers\Web\Admin\NotificationController;
 use App\Http\Controllers\Web\Admin\PagesController;
 use App\Http\Controllers\Web\Admin\ProfileController as ProfileAdminController;
-use App\Http\Controllers\Web\Admin\RoleController;
+use App\Http\Controllers\Web\Admin\WalletController;
 use App\Http\Controllers\Web\Admin\AdminsController;
 
 use App\Http\Controllers\Web\Admin\SettingsController as SettingsAdminController;
@@ -83,7 +83,8 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin-panel', 'as' =>
     // البطاقات
     Route::resource('cards', CardsController::class);
 
-
+    // التحويلات
+    Route::post('transfer', [WalletController::class, 'transfer'])->name('transfer');
 
 });
 

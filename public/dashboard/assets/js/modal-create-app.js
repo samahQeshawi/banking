@@ -6,7 +6,7 @@
 
 $(function () {
   // Modal id
-  const appModal = document.getElementById('createApp');
+  const appModal = document.getElementById('transferModal');
 
   // Credit Card
   const creditCardMask1 = document.querySelector('.app-credit-card-mask'),
