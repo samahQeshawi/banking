@@ -53,4 +53,9 @@ class Admin extends Authenticatable
                 ->withPivot(['id_number', 'problem', 'delegation_duration', 'agency_number', 'agency_type', 'max_amount'])
                 ->withTimestamps();
     }
+
+    public function wallet()
+    {
+       return $this->hasOne(Wallet::class, 'user_id');
+    }
 }

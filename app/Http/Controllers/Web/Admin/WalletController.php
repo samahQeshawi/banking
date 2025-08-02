@@ -63,20 +63,27 @@ class WalletController extends Controller
 
         }
         $risk = $aiResponse->json();
-
+         dd($risk);
         // تحقق مستوى الخطورة
         if ($risk['risk_level']['en'] === 'High') {
-            return response()->json([
-                'message' => 'Transaction flagged as HIGH RISK by AI fraud detection. Operation denied.',
-                'fraud_score' => $risk['risk_score'],
-                'ai_reasons' => $risk['reasons']
-            ], 403);
+            // return response()->json([
+            //     'message' => 'Transaction flagged as HIGH RISK by AI fraud detection. Operation denied.',
+            //     'fraud_score' => $risk['risk_score'],
+            //     'ai_reasons' => $risk['reasons']
+            // ], 403);
+            return redirect()->route('admin.accounts.index')->with('error', __('lang.account_transfer_high_risk'));
         } elseif ($risk['risk_level']['en'] === 'Medium') {
-            return response()->json([
-                'message' => 'Transaction flagged as MEDIUM RISK by AI fraud detection. Further verification required.',
-                'fraud_score' => $risk['risk_score'],
-                'ai_reasons' => $risk['reasons']
-            ], 401);
+            // return response()->json([
+            //     'message' => 'Transaction flagged as MEDIUM RISK by AI fraud detection. Further verification required.',
+            //     'fraud_score' => $risk['risk_score'],
+            //     'ai_reasons' => $risk['reasons']
+            // ], 401);
+            return redirect()->route('admin.accounts.index')->with('warning', __('lang.account_transfer_medium_risk'));
+        } elseif ($risk['risk_level']['en'] === 'Low') {
+            // لا شيء، استمر في المعاملة
+        } else {
+            // return response()->json(['message' => 'AI fraud detection failed'], 500);
+            return redirect()->route('admin.accounts.index')->with('error', __('lang.account_transfer_ai_error'));
         }
         // ================================================
 

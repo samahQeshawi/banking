@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('balance_before', 18, 2)->nullable();
             $table->decimal('balance_after', 18, 2)->nullable();
             $table->text('description')->nullable();
+            $table->enum('status', ['pending', 'approve', 'cancelled'])->default('pending');
             $table->timestamps();
 
             $table->foreign('wallet_id')->references('id')->on('wallets')->onDelete('cascade');

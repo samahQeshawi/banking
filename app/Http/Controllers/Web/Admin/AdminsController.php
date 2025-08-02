@@ -18,10 +18,10 @@ class AdminsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission:admins display', ['only' => ['index', 'show']]);
-        $this->middleware('permission:admins create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:admins update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:admins delete', ['only' => ['destroy']]);
+        // $this->middleware('permission:admins display', ['only' => ['index', 'show']]);
+        // $this->middleware('permission:admins create', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:admins update', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:admins delete', ['only' => ['destroy']]);
     }
 
     public function index(AdminDataTable $dataTable)

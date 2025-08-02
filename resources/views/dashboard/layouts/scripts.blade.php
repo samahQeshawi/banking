@@ -206,53 +206,62 @@
             }
 
             Swal.fire({
-                title: titleSwal ,
-                text:textSwal,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: "نعم",
-                customClass: {
-                   confirmButton: 'btn btn-warning me-3 waves-effect waves-light',
-                   cancelButton: 'btn btn-label-secondary waves-effect waves-light'
-                },
-                cancelButtonText: "الغاء",
-                buttonsStyling: false,
-               }).then((result) => {
-                if (result.value) {
+    title: titleSwal,
+    text: textSwal,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: "نعم",
+    cancelButtonText: "إلغاء",
+    customClass: {
+        confirmButton: 'btn btn-warning me-3 waves-effect waves-light',
+        cancelButton: 'btn btn-label-secondary waves-effect waves-light'
+    },
+    buttonsStyling: false,
+}).then((result) => {
+    let status = null;
 
-                    $.ajax({
-                        url,
-                        type: 'get',
-                        headers: {
-                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        success(response) {
-                            console.log(response)
-                            Swal.fire({
-                                title: "تم تحديث الحالة بنجاح",
-                                icon: 'success',
-                                confirmButtonText: "تم",
-                                customClass: {
-                                confirmButton: 'btn btn-success waves-effect waves-light'
-                                }
-                            });
-                            table.ajax.reload();
-                        },
-                        error(error) {
-                            console.log(error)
-                            Swal.fire({
-                                icon: 'error',
-                                title: "خطأ",
-                                text: "هناك خطأ ما !",
-                                customClass: {
-                                confirmButton: 'btn btn-label-secondary waves-effect waves-light'
-                                 },
-                                 buttonsStyling: false,
-                            });
-                        }
-                    })
-                }
-            });
+    if (result.isConfirmed) {
+        status = 'approve'; // الحالة عند الضغط على "نعم"
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+        status = 'cancelled'; // الحالة عند الضغط على "إلغاء"
+    }
+
+    if (status !== null) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: { status: status }, // إرسال الحالة كـ parameter
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success(response) {
+                console.log(response);
+                Swal.fire({
+                    title: "تم تحديث الحالة بنجاح",
+                    icon: 'success',
+                    confirmButtonText: "تم",
+                    customClass: {
+                        confirmButton: 'btn btn-success waves-effect waves-light'
+                    }
+                });
+                table.ajax.reload();
+            },
+            error(error) {
+                console.log(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: "خطأ",
+                    text: "هناك خطأ ما !",
+                    customClass: {
+                        confirmButton: 'btn btn-label-secondary waves-effect waves-light'
+                    },
+                    buttonsStyling: false,
+                });
+            }
+        });
+    }
+});
+
           });
         })
 

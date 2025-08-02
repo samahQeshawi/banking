@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Web\Admin\CategoriesController;
-use App\Http\Controllers\Web\Admin\NotificationController;
-use App\Http\Controllers\Web\Admin\PagesController;
+use App\Http\Controllers\Web\Admin\DelegationController;
+use App\Http\Controllers\Web\Admin\TransactionController;
 use App\Http\Controllers\Web\Admin\ProfileController as ProfileAdminController;
 use App\Http\Controllers\Web\Admin\WalletController;
 use App\Http\Controllers\Web\Admin\AdminsController;
@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin-panel', 'as' =>
     // المشرفين
     Route::resource('admins', AdminsController::class);
     Route::get('admins/updateStatus/{id}', [AdminsController::class, 'updateStatus'])->name('admins.updateStatus');
+    Route::resource('delegations', DelegationController::class);
 
     // الحسابات
     Route::resource('accounts', AccountsController::class);
@@ -85,6 +86,11 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin-panel', 'as' =>
 
     // التحويلات
     Route::post('transfer', [WalletController::class, 'transfer'])->name('transfer');
+
+    // الحركات
+    Route::resource('transactions', TransactionController::class);
+    Route::get('transactions/updateStatus/{id}', [TransactionController::class, 'updateStatus'])->name('transactions.updateStatus');
+
 
 });
 

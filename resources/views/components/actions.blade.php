@@ -22,14 +22,16 @@
 </button>
 @endif
 @if($routeShow)
-    <a style="margin-bottom: 3px" href="{{ route($routeShow, $id) }}" type="button"
-       class="btn btn-icon btn-label-primary waves-effect mr-2"
-       data-bs-toggle="tooltip"
-       data-bs-placement="top"
-       data-bs-custom-class="tooltip-info"
-       title="عرض التفاصيل">
+    <button style="margin-bottom: 3px"
+            type="button"
+            class="btn btn-icon btn-label-primary waves-effect mr-2 show-transfer-details"
+            data-bs-toggle="modal"
+            data-bs-target="#transferDetailsModal"
+            data-id="{{ $id }}"
+            data-url="{{ route($routeShow, $id) }}"
+            title="عرض التفاصيل">
         <i class="fa-duotone fa-solid fa-eye"></i>
-    </a>
+    </button>
 @endif
 
 

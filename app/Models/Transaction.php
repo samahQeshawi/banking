@@ -7,11 +7,11 @@ class Transaction extends Model
 {
     protected $fillable = [
         'wallet_id', 'type', 'amount', 'balance_before', 'balance_after',
-        'description', 'related_wallet_id', 'related_transaction_id'
+        'description', 'related_wallet_id', 'related_transaction_id','status'
     ];
 
     public function wallet() {
-        return $this->belongsTo(Wallet::class);
+        return $this->belongsTo(Wallet::class, 'wallet_id');
     }
     public function relatedWallet() {
         return $this->belongsTo(Wallet::class, 'related_wallet_id');

@@ -12,7 +12,7 @@ class Wallet extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function user() {
-        return $this->belongsTo(Admin::class);
+    public function owner() {
+        return $this->belongsTo(Admin::class, 'user_id');
     }
 }
