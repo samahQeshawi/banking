@@ -14,8 +14,8 @@ class ProfileController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission:profile display', ['only' => ['show']]);
-        $this->middleware('permission:profile update', ['only' => ['update']]);
+        // $this->middleware('permission:profile display', ['only' => ['show']]);
+        // $this->middleware('permission:profile update', ['only' => ['update']]);
     }
 
     public function show()
